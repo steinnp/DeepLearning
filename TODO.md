@@ -1,0 +1,5 @@
+-Create report template
+-Set up simple 1 layer network
+-Set up visualization tools
+-Create data reading classes
+-Look into image training data formatting (See lecture 8/9)
