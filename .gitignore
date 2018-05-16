@@ -145,6 +145,9 @@ Session.vim
 # auto-generated tag files
 tags
 
+### OSX ###
+.DS_Store
+
 ### Windows ###
 # Windows thumbnail cache files
 Thumbs.db
