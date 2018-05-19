@@ -38,7 +38,7 @@ def preprocess_image(sourcePath, destinationPath, breed, dataGenerator, copies):
   print('Running preprocess_image')
   img = load_img(sourcePath)
   x = img_to_array(img)
-  x = tf.image.resize_image_with_crop_or_pad(x, 300, 300).eval(session=sess)
+  x = tf.image.resize_images(x, (300, 300)).eval(session=sess)
   x = x.reshape((1,) + x.shape)  # this is a Numpy array with shape (1, 3, 200, 200)
   # the .flow() command below generates batches of randomly transformed images
   # and saves the results to the `preview/` directory
@@ -69,13 +69,12 @@ def generate_training_data():
       os.makedirs(destinationPath)
     j = 0
     for imageFile in os.listdir(imagePath + '/' + breedDir):
-      if j > 50:
+      if j > 30:
         break
       preprocess_image(imagePath + '/' + breedDir + '/' + imageFile, destinationPath, breed, datagen, 2)
       j += 1 
     i += 1
   print('DONE')
-
 #%%
 def generate_testing_data():
   print('Running generate_testing_data')
