@@ -25,7 +25,6 @@ datagen = ImageDataGenerator(
         zoom_range=0.2,
         rescale=1./255,
         horizontal_flip=True,
-        validation_split=0.8,
         fill_mode='nearest')
 val_datagen = ImageDataGenerator(rescale=1./255)
 print('done')
