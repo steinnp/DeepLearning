@@ -75,7 +75,6 @@ def generate_training_data():
       j += 1 
     i += 1
   print('DONE')
-generate_training_data()
 #%%
 def generate_testing_data():
   print('Running generate_testing_data')
@@ -104,7 +103,6 @@ def generate_testing_data():
     i += 1
   print('DONE')
 
-generate_testing_data()
 #%%
 def create_one_hot_dict():
   dogbreedDirectories = os.listdir(annotationPath)
