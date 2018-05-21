@@ -13,8 +13,8 @@ import numpy
 # imagePath = './Data/images/Images'
 annotationPath = 'N:/DL_Data/Data/Annotation'
 imagePath = 'N:/DL_Data/Data/Images'
-saveTestPath = 'N:/DL_Data/DoggoTest'
-savePath = 'N:/DL_Data/DoggoTrain'
+saveTestPath = 'N:/DL_Data/Dogs/validation'
+savePath = 'N:/DL_Data/Dogs/train'
 # saveTestPath = 'G:/DogsTest'
 # savePath = 'G:/Dogs2'
 datagen = ImageDataGenerator(
