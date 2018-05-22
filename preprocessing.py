@@ -11,8 +11,6 @@ import os
 import numpy
 annotationPath = 'N:/DL_Data/Data/Annotation'
 imagePath = 'N:/DL_Data/Data/Images'
-#saveTestPath = 'N:/DL_Data/DoggoTest'
-#savePath = 'N:/DL_Data/DoggoTrain'
 savePath = 'G:/Dogs/train/'
 saveTestPath = 'G:/Dogs/validation/'
 datagen = ImageDataGenerator(

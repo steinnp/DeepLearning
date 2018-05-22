@@ -21,7 +21,7 @@ x = Flatten()(x)
 x = Dense(1024, activation="relu")(x)
 x = Dropout(0.5)(x)
 x = Dense(1024, activation="relu")(x)
-predictions = Dense(11, activation="softmax")(x)
+predictions = Dense(120, activation="softmax")(x)
 
 # creating the final model 
 model_final = Model(input = model.input, output = predictions)
@@ -29,7 +29,7 @@ model_final = Model(input = model.input, output = predictions)
 # compile the model 
 model_final.compile(loss = "categorical_crossentropy", optimizer = SGD(lr=0.0001, momentum=0.9), metrics=["accuracy"])
 history = model_final.fit_generator(create_generator(image_size, 32),
-                    epochs=50,
+                    epochs=120,
                     verbose=2,
                     validation_data=create_validation_generator(image_size, 16)
                     )
