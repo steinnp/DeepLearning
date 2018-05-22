@@ -1,3 +1,5 @@
+# Used to split files into directory into two directories with a 75/25 split ratio
+# to create a test and training dataset
 #%%
 import os
 import math
