@@ -9,14 +9,12 @@ sess = tf.Session()
 from keras.preprocessing.image import ImageDataGenerator, array_to_img, img_to_array, load_img
 import os
 import numpy
-# annotationPath = './Data/annotation/Annotation'
-# imagePath = './Data/images/Images'
 annotationPath = 'N:/DL_Data/Data/Annotation'
 imagePath = 'N:/DL_Data/Data/Images'
-saveTestPath = 'N:/DL_Data/DoggoTest'
-savePath = 'N:/DL_Data/DoggoTrain'
-# saveTestPath = 'G:/DogsTest'
-# savePath = 'G:/Dogs2'
+#saveTestPath = 'N:/DL_Data/DoggoTest'
+#savePath = 'N:/DL_Data/DoggoTrain'
+savePath = 'G:/Dogs/train/'
+saveTestPath = 'G:/Dogs/validation/'
 datagen = ImageDataGenerator(
         rotation_range=40,
         width_shift_range=0.1,
