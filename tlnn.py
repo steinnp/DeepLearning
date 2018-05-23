@@ -30,7 +30,7 @@ predictions = Dense(120, activation="softmax")(x)
 model_final = Model(inputs = model.input, outputs = predictions)
 
 # compile the model 
-model_final.compile(loss = "categorical_crossentropy", optimizer = SGD(lr=0.001, momentum=0.95, decay=1e-5, nesterov=True), metrics=["accuracy"])
+model_final.compile(loss = "categorical_crossentropy", optimizer = SGD(lr=0.0001, momentum=0.95, decay=1e-5, nesterov=True), metrics=["accuracy"])
 #model_final.compile(loss = "categorical_crossentropy", optimizer = Adam(), metrics=["accuracy"])
 history = model_final.fit_generator(create_generator(image_size, batch_size),
                     epochs=1200,
