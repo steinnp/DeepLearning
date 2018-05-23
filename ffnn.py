@@ -78,32 +78,32 @@ pprint(scores)
 # (32, [4.587032192331734, 0.025067489394523718])
 # """
 # 
-# #%%
-# optimizers = ['Adagrad', 'Adadelta', 'Adam', 'SGD', 'Adamax', 'Nadam']
-# optimizer_results = [] 
-# for op in optimizers:
-#     print('CHECKING OPTIMIZERS: ' + op)
-#     new_mod, hist = generate_ffnn_model(optimizer=op, epochs=5)
-#     scores = new_mod.evaluate_generator(create_validation_generator(image_size, 128))
-#     optimizer_results.append((op, scores))
-# print('DONE OPTIMIZER SERACH')
-# 
-# """
-# ALL WITH BATCH SIZE 4
-# ('Adagrad', [15.993775340888291, 0.007713073659853451])
-# ('Adadelta', [15.984451336608721, 0.008291554184342461])
-# ('Adam', [15.999991343741337, 0.007327419976860779])
-# ('SGD', [4.454804638569483, 0.03740840725028924])
-# ('Adamax', [15.993775340888291, 0.007713073659853451])
-# ('Nadam', [15.975127332329153, 0.00887003470883147])
-# """
-# 
-# 
-# 
-# #%%
-# for res in optimizer_results:
-#     print(res)
-# 
+#%%
+optimizers = ['Adagrad', 'Adadelta', 'Adam', 'SGD', 'Adamax', 'Nadam']
+optimizer_results = [] 
+for op in optimizers:
+    print('CHECKING OPTIMIZERS: ' + op)
+    new_mod, hist = generate_ffnn_model(optimizer=op, epochs=10)
+    scores = new_mod.evaluate_generator(create_validation_generator(image_size, 128))
+    optimizer_results.append((op, scores))
+print('DONE OPTIMIZER SERACH')
+
+"""
+ALL WITH BATCH SIZE 4
+('Adagrad', [15.993775340888291, 0.007713073659853451])
+('Adadelta', [15.984451336608721, 0.008291554184342461])
+('Adam', [15.999991343741337, 0.007327419976860779])
+('SGD', [4.454804638569483, 0.03740840725028924])
+('Adamax', [15.993775340888291, 0.007713073659853451])
+('Nadam', [15.975127332329153, 0.00887003470883147])
+"""
+
+
+
+#%%
+for res in optimizer_results:
+    print(res)
+
 # ## Hyper Search for Activation ##
 # #%%
 # results = []

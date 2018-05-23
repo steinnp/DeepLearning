@@ -10,12 +10,12 @@ from pprint import pprint
 from plot import plot_loss_accuracy
 
 from preprocessing import create_generator, create_validation_generator
-image_size = 100
+image_size = 64
 classes = 120
 print('DONE')
 
 #%%
-def generate_cnn_model(learn_rate=0.01, momentum=0, epochs=5, activation='relu', batch_size=100, dropout=0.1):
+def generate_cnn_model(learn_rate=0.01, momentum=0, epochs=5, activation='relu', batch_size=160, dropout=0.1):
   model = Sequential()
   # input: 300x300 images with 3 channels -> (100, 100, 3) tensors.
   # this applies 32 convolution filters of size 3x3 each.
