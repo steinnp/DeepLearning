@@ -4,10 +4,11 @@ from keras.models import Sequential
 from keras.layers import Dense, Dropout, Flatten, Activation
 from keras.layers import Conv2D, MaxPooling2D
 from keras.initializers import he_normal, glorot_normal
+from keras.activations import elu
 from keras.optimizers import SGD, Adam
 from keras.regularizers import l2
 from pprint import pprint
-from plot import plot_loss_accuracy
+from plot import plot_loss_accuracy, plot_model_structure
 
 from preprocessing import create_generator, create_validation_generator
 image_size = 100
@@ -15,43 +16,31 @@ classes = 120
 print('DONE')
 
 #%%
-def generate_cnn_model(learn_rate=0.01, momentum=0, epochs=5, activation='relu', batch_size=100, dropout=0.1):
+def generate_cnn_model(learn_rate=0.01, momentum=0, epochs=5, activation='softplus', batch_size=100, dropout=0.1):
   model = Sequential()
   # input: 300x300 images with 3 channels -> (100, 100, 3) tensors.
   # this applies 32 convolution filters of size 3x3 each.
-  model.add(Conv2D(64,
-              (3, 3),
-              activation=activation,
-              input_shape=(image_size, image_size, 3),
-              kernel_initializer=he_normal(),
-              padding='same'
-              )
-        )
-  model.add(Conv2D(64,
-              (3, 3),
-              activation=activation,
-              input_shape=(image_size, image_size, 3),
-              kernel_initializer=he_normal(),
-              padding='same'
-              )
-        )
-#  model.add(MaxPooling2D(pool_size=(2, 2), strides=2, padding='same'))
-#  model.add(Dropout(0.4))
-#
-#  model.add(Conv2D(64,
-#              (3, 3),
-#              activation=activation,
-#              kernel_initializer=he_normal(),
-#              padding='same'
-#              )
-#        )
-#  model.add(Dropout(0.4))
-
-  model.add(Dropout(0.1))
-  model.add(MaxPooling2D(pool_size=(2, 2), strides=2, padding='same'))
-  model.add(Dropout(0.2))
-
   model.add(Conv2D(32,
+              (3, 3),
+              activation=activation,
+              input_shape=(image_size, image_size, 3),
+              kernel_initializer=he_normal(),
+              padding='same'
+              )
+        )
+  model.add(Dropout(0.1))
+  model.add(Conv2D(32,
+              (3, 3),
+              activation=activation,
+              input_shape=(image_size, image_size, 3),
+              kernel_initializer=he_normal(),
+              padding='same'
+              )
+        )
+  model.add(MaxPooling2D(pool_size=(2, 2), strides=2, padding='same'))
+  model.add(Dropout(0.25))
+
+  model.add(Conv2D(64,
               (3, 3),
               activation=activation,
               kernel_initializer=he_normal(),
@@ -59,10 +48,25 @@ def generate_cnn_model(learn_rate=0.01, momentum=0, epochs=5, activation='relu',
               padding='same'
               )
         )
-  model.add(Dropout(0.3))
+  model.add(Dropout(0.25))
+  model.add(Conv2D(64,
+              (3, 3),
+              activation=activation,
+              kernel_initializer=he_normal(),
+              #kernel_regularizer=l2(0.01),
+              padding='same'
+              )
+        )
   model.add(MaxPooling2D(pool_size=(2, 2), strides=2, padding='same'))
-  model.add(Dropout(0.4))
+  model.add(Dropout(0.5))
   model.add(Flatten())
+  model.add(Dense(1024,
+              activation=activation,
+              kernel_initializer=he_normal(),
+              #kernel_regularizer=l2(0.01)
+              )
+        )
+  model.add(Dropout(0.5))
   model.add(Dense(1024,
               activation=activation,
               kernel_initializer=he_normal(),
@@ -76,8 +80,8 @@ def generate_cnn_model(learn_rate=0.01, momentum=0, epochs=5, activation='relu',
               #kernel_regularizer=l2(0.01)
               )
         )
-  #sgd = SGD(lr=0.01, decay=1e-5, momentum=0.9, nesterov=True)
-  model.compile(loss='categorical_crossentropy', optimizer='adam', metrics=['accuracy'])
+  sgd = SGD(lr=0.01, decay=1e-5, momentum=0.95, nesterov=True)
+  model.compile(loss='categorical_crossentropy', optimizer=sgd, metrics=['accuracy'])
   history = model.fit_generator(create_generator(image_size, batch_size),
                       epochs=epochs,
                       verbose=2,
@@ -126,11 +130,12 @@ for mod in models:
 
 """
 #%%
-model, history = generate_cnn_model(epochs = 250, dropout=0.1)
-plot_loss_accuracy(history, 'cnnAccuracy.png', 'cnnLoss.png')
+model, history = generate_cnn_model(epochs = 250, batch_size=100)
+# plot_loss_accuracy(history, 'cnnAccuracy.png', 'cnnLoss.png')
 #adam = Adam()
 #%%
-plot_loss_accuracy(history, 'cnnAccuracy.png', 'cnnLoss.png')
+plot_model_structure(model, 'model_structure.png')
+#plot_loss_accuracy(history, 'cnnAccuracy.png', 'cnnLoss.png')
 #print('Done training')
 ## Try 20 epochs, batch size 32, decay 1e-5, momentum 0.001, lr 0.05, dropout 0.04, 0.04, 0.02
 ##%%
